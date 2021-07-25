@@ -10,8 +10,8 @@ class Component extends StatelessWidget {
 
   /// Fundamental building unit of a diagram. Represents one component on the canvas.
   const Component({
-    Key key,
-    this.policy,
+    Key? key,
+    required this.policy,
   }) : super(key: key);
 
   @override

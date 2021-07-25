@@ -12,7 +12,7 @@ void main() {
   group('Link widget tests', () {
     PolicySet policySet = PolicySet();
 
-    String linkId;
+    String? linkId;
 
     var editor = MaterialApp(
       home: DiagramEditor(
@@ -37,14 +37,14 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(editor);
 
-      policySet.canvasWriter.model.addComponent(componentData1);
-      policySet.canvasWriter.model.addComponent(componentData2);
+      policySet.canvasWriter!.model.addComponent(componentData1);
+      policySet.canvasWriter!.model.addComponent(componentData2);
 
       await tester.pump();
 
       expect(find.byType(Component), findsNWidgets(2));
 
-      linkId = policySet.canvasWriter.model.connectTwoComponents(
+      linkId = policySet.canvasWriter!.model.connectTwoComponents(
         sourceComponentId: componentData1.id,
         targetComponentId: componentData2.id,
       );
@@ -62,8 +62,8 @@ void main() {
       expect(find.byType(Component), findsNWidgets(2));
       expect(find.byType(Link), findsOneWidget);
 
-      policySet.canvasWriter.model
-          .insertLinkMiddlePoint(linkId, Offset(20, 20), 1);
+      policySet.canvasWriter!.model
+          .insertLinkMiddlePoint(linkId!, Offset(20, 20), 1);
 
       await tester.pump();
 
@@ -79,8 +79,8 @@ void main() {
       expect(find.byType(Component), findsNWidgets(2));
       expect(find.byType(Link), findsOneWidget);
 
-      policySet.canvasWriter.model
-          .moveLinkMiddlePoint(linkId, Offset(20, 20), 1);
+      policySet.canvasWriter!.model
+          .moveLinkMiddlePoint(linkId!, Offset(20, 20), 1);
 
       await tester.pump();
 
@@ -96,7 +96,7 @@ void main() {
       expect(find.byType(Component), findsNWidgets(2));
       expect(find.byType(Link), findsOneWidget);
 
-      policySet.canvasWriter.model.removeLinkMiddlePoint(linkId, 1);
+      policySet.canvasWriter!.model.removeLinkMiddlePoint(linkId!, 1);
 
       await tester.pump();
 
@@ -111,7 +111,7 @@ void main() {
 
       expect(find.byType(Component), findsNWidgets(2));
 
-      policySet.canvasWriter.model.removeLink(linkId);
+      policySet.canvasWriter!.model.removeLink(linkId!);
 
       await tester.pump();
 

@@ -29,7 +29,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(editor);
 
-      policySet.canvasWriter.model.addComponent(componentData);
+      policySet.canvasWriter!.model.addComponent(componentData);
 
       await tester.pump();
 

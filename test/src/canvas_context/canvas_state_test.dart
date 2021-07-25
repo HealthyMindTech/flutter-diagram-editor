@@ -11,7 +11,7 @@ void main() {
         () {
       PolicySet policySet = PolicySet();
 
-      var editor = MaterialApp(
+      MaterialApp(
         home: DiagramEditor(
           diagramEditorContext: DiagramEditorContext(
             policySet: policySet,
@@ -19,8 +19,8 @@ void main() {
         ),
       );
 
-      expect(policySet.canvasReader.state.scale, 1);
-      expect(policySet.canvasReader.state.position, Offset.zero);
+      expect(policySet.canvasReader!.state.scale, 1);
+      expect(policySet.canvasReader!.state.position, Offset.zero);
     });
   });
 }

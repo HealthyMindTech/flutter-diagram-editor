@@ -31,7 +31,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(editor);
 
-      policySet.canvasWriter.model.addComponent(componentData);
+      policySet.canvasWriter!.model.addComponent(componentData);
 
       await tester.pump();
       expect(find.byType(Component), findsOneWidget);
@@ -44,7 +44,7 @@ void main() {
 
       expect(find.byType(Component), findsOneWidget);
 
-      policySet.canvasWriter.model.removeComponent(componentData.id);
+      policySet.canvasWriter!.model.removeComponent(componentData.id);
 
       await tester.pump();
       expect(find.byType(Component), findsNothing);
@@ -55,15 +55,15 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(editor);
 
-      String id1 = policySet.canvasWriter.model.addComponent(componentData);
-      String id2 = policySet.canvasWriter.model.addComponent(componentData2);
-      policySet.canvasWriter.model.setComponentParent(id2, id1);
+      String id1 = policySet.canvasWriter!.model.addComponent(componentData);
+      String id2 = policySet.canvasWriter!.model.addComponent(componentData2);
+      policySet.canvasWriter!.model.setComponentParent(id2, id1);
 
       await tester.pump();
 
       expect(find.byType(Component), findsNWidgets(2));
 
-      policySet.canvasWriter.model.removeComponentWithChildren(id1);
+      policySet.canvasWriter!.model.removeComponentWithChildren(id1);
 
       await tester.pump();
       expect(find.byType(Component), findsNothing);
@@ -74,10 +74,10 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(editor);
 
-      policySet.canvasWriter.model.addComponent(componentData);
+      policySet.canvasWriter!.model.addComponent(componentData);
       await tester.pump();
 
-      policySet.canvasWriter.state.setPosition(Offset(10, 0));
+      policySet.canvasWriter!.state.setPosition(Offset(10, 0));
 
       await tester.pump();
 
@@ -89,7 +89,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(editor);
 
-      policySet.canvasWriter.state.setPosition(Offset(10, 0));
+      policySet.canvasWriter!.state.setPosition(Offset(10, 0));
 
       await tester.pump();
 
@@ -101,7 +101,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(editor);
 
-      policySet.canvasWriter.state.setScale(1.5);
+      policySet.canvasWriter!.state.setScale(1.5);
 
       await tester.pump();
 
@@ -113,7 +113,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(editor);
 
-      policySet.canvasWriter.state.updateScale(1.5);
+      policySet.canvasWriter!.state.updateScale(1.5);
 
       await tester.pump();
 

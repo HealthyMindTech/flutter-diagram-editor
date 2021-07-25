@@ -1,4 +1,6 @@
 import 'package:diagram_editor/src/canvas_context/model/link_data.dart';
+import 'package:diagram_editor/src/utils/link_style.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -8,6 +10,7 @@ void main() {
       id: 'id',
       sourceComponentId: 'sourceComponentId',
       targetComponentId: 'targetComponentId',
+      linkStyle: LinkStyle(),
       linkPoints: [
         Offset(0, 0),
         Offset(100, 0),

@@ -204,7 +204,7 @@ mixin ComponentWriter on ModelWriter {
   bool _checkParentChildLoop(String componentId, String parentId) {
     if (componentId == parentId) return false;
 
-    String parentIdOfParent = _canvasModel.getComponent(parentId).parentId;
+    String? parentIdOfParent = _canvasModel.getComponent(parentId).parentId;
     if (parentIdOfParent != null) {
       return _checkParentChildLoop(componentId, parentIdOfParent);
     }
@@ -218,7 +218,7 @@ mixin ComponentWriter on ModelWriter {
   removeComponentParent(String componentId) {
     assert(_canvasModel.components.containsKey(componentId),
         'model does not contain this component id: $componentId');
-    String parentId = _canvasModel.getComponent(componentId).parentId;
+    String? parentId = _canvasModel.getComponent(componentId).parentId;
     if (parentId != null) {
       _canvasModel.getComponent(componentId).removeParent();
       _canvasModel.getComponent(parentId).removeChild(componentId);
@@ -241,14 +241,14 @@ mixin LinkWriter on ModelWriter {
   showLinkJoints(String linkId) {
     assert(_canvasModel.links.containsKey(linkId),
         'model does not contain this link id: $linkId');
-    _canvasModel.links[linkId].showJoints();
+    _canvasModel.links[linkId]!.showJoints();
   }
 
   /// Makes all link's joints invisible.
   hideLinkJoints(String linkId) {
     assert(_canvasModel.links.containsKey(linkId),
         'model does not contain this link id: $linkId');
-    _canvasModel.links[linkId].hideJoints();
+    _canvasModel.links[linkId]!.hideJoints();
   }
 
   /// Makes invisible all link joints on the canvas.
@@ -264,8 +264,8 @@ mixin LinkWriter on ModelWriter {
   updateLink(String linkId) {
     assert(_canvasModel.links.containsKey(linkId),
         'model does not contain this link id: $linkId');
-    _canvasModel.updateLinks(_canvasModel.links[linkId].sourceComponentId);
-    _canvasModel.updateLinks(_canvasModel.links[linkId].targetComponentId);
+    _canvasModel.updateLinks(_canvasModel.links[linkId]!.sourceComponentId);
+    _canvasModel.updateLinks(_canvasModel.links[linkId]!.targetComponentId);
   }
 
   /// Creates a new link's joint on [point] location.
@@ -276,7 +276,7 @@ mixin LinkWriter on ModelWriter {
   insertLinkMiddlePoint(String linkId, Offset point, int index) {
     assert(_canvasModel.links.containsKey(linkId),
         'model does not contain this link id: $linkId');
-    _canvasModel.links[linkId]
+    _canvasModel.links[linkId]!
         .insertMiddlePoint(_canvasState.fromCanvasCoordinates(point), index);
   }
 
@@ -286,7 +286,7 @@ mixin LinkWriter on ModelWriter {
   setLinkMiddlePointPosition(String linkId, Offset point, int index) {
     assert(_canvasModel.links.containsKey(linkId),
         'model does not contain this link id: $linkId');
-    _canvasModel.links[linkId].setMiddlePointPosition(
+    _canvasModel.links[linkId]!.setMiddlePointPosition(
         _canvasState.fromCanvasCoordinates(point), index);
   }
 
@@ -296,7 +296,7 @@ mixin LinkWriter on ModelWriter {
   moveLinkMiddlePoint(String linkId, Offset offset, int index) {
     assert(_canvasModel.links.containsKey(linkId),
         'model does not contain this link id: $linkId');
-    _canvasModel.links[linkId]
+    _canvasModel.links[linkId]!
         .moveMiddlePoint(offset / _canvasState.scale, index);
   }
 
@@ -306,14 +306,14 @@ mixin LinkWriter on ModelWriter {
   removeLinkMiddlePoint(String linkId, int index) {
     assert(_canvasModel.links.containsKey(linkId),
         'model does not contain this link id: $linkId');
-    _canvasModel.links[linkId].removeMiddlePoint(index);
+    _canvasModel.links[linkId]!.removeMiddlePoint(index);
   }
 
   /// Updates all link's joints position by [offset].
   moveAllLinkMiddlePoints(String linkId, Offset position) {
     assert(_canvasModel.links.containsKey(linkId),
         'model does not contain this link id: $linkId');
-    _canvasModel.links[linkId]
+    _canvasModel.links[linkId]!
         .moveAllMiddlePoints(position / _canvasState.scale);
   }
 }
@@ -329,9 +329,9 @@ mixin ConnectionWriter on ModelWriter {
   /// You can define the design of the link with [LinkStyle].
   /// You can add your own dynamic [data] to the link.
   String connectTwoComponents({
-    String sourceComponentId,
-    String targetComponentId,
-    LinkStyle linkStyle,
+    required String sourceComponentId,
+    required String targetComponentId,
+    LinkStyle linkStyle = const LinkStyle(),
     dynamic data,
   }) {
     assert(_canvasModel.components.containsKey(sourceComponentId));

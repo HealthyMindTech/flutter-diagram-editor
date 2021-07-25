@@ -29,12 +29,12 @@ class LinkData with ChangeNotifier {
 
   /// Represents data of a link/connection in the model.
   LinkData({
-    this.id,
-    this.sourceComponentId,
-    this.targetComponentId,
-    this.linkStyle,
-    this.linkPoints,
-    this.data,
+      required this.id,
+      required this.sourceComponentId,
+      required this.targetComponentId,
+      required this.linkStyle,
+      required this.linkPoints,
+      this.data,
   });
 
   /// Updates this link on the canvas.
@@ -124,7 +124,7 @@ class LinkData with ChangeNotifier {
   /// Segments are indexed from 1.
   /// If there is no link segment on the tap location it returns null.
   /// It should take a [localPosition] from a [onLinkTap] function or similar.
-  int determineLinkSegmentIndex(
+  int? determineLinkSegmentIndex(
     Offset position,
     Offset canvasPosition,
     double canvasScale,

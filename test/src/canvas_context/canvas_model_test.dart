@@ -10,7 +10,6 @@ void main() {
         () {
       PolicySet policySet = PolicySet();
       var model = CanvasModel(policySet);
-      ComponentData componentData = ComponentData();
 
       expect(model.components.isEmpty, true);
     });
@@ -69,7 +68,7 @@ void main() {
       expect(connectionsA.single is ConnectionOut, true);
       expect(connectionsB.single is ConnectionIn, true);
 
-      expect(model.links[linkId].id, linkId);
+      expect(model.links[linkId]!.id, linkId);
     });
 
     test(

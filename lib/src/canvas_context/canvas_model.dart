@@ -17,7 +17,7 @@ class CanvasModel with ChangeNotifier {
   CanvasModel(this.policySet);
 
   ComponentData getComponent(String id) {
-    return components[id];
+    return components[id]!;
   }
 
   HashMap<String, ComponentData> getAllComponents() {
@@ -25,7 +25,7 @@ class CanvasModel with ChangeNotifier {
   }
 
   LinkData getLink(String id) {
-    return links[id];
+    return links[id]!;
   }
 
   HashMap<String, LinkData> getAllLinks() {
@@ -50,7 +50,7 @@ class CanvasModel with ChangeNotifier {
 
     List<String> linksToRemove = [];
 
-    components[id].connections.forEach((connection) {
+    components[id]!.connections.forEach((connection) {
       linksToRemove.add(connection.connectionId);
     });
 
@@ -65,20 +65,20 @@ class CanvasModel with ChangeNotifier {
   }
 
   setComponentZOrder(String componentId, int zOrder) {
-    components[componentId].zOrder = zOrder;
+    components[componentId]!.zOrder = zOrder;
     notifyListeners();
   }
 
   /// You cannot use is during any movement, because the order will change so the moving item will change.
   /// Returns new zOrder
   int moveComponentToTheFront(String componentId) {
-    int zOrderMax = components[componentId].zOrder;
+    int zOrderMax = components[componentId]!.zOrder;
     components.values.forEach((component) {
       if (component.zOrder > zOrderMax) {
         zOrderMax = component.zOrder;
       }
     });
-    components[componentId].zOrder = zOrderMax + 1;
+    components[componentId]!.zOrder = zOrderMax + 1;
     notifyListeners();
     return zOrderMax + 1;
   }
@@ -86,13 +86,13 @@ class CanvasModel with ChangeNotifier {
   /// You cannot use is during any movement, because the order will change so the moving item will change.
   /// /// Returns new zOrder
   int moveComponentToTheBack(String componentId) {
-    int zOrderMin = components[componentId].zOrder;
+    int zOrderMin = components[componentId]!.zOrder;
     components.values.forEach((component) {
       if (component.zOrder < zOrderMin) {
         zOrderMin = component.zOrder;
       }
     });
-    components[componentId].zOrder = zOrderMin - 1;
+    components[componentId]!.zOrder = zOrderMin - 1;
     notifyListeners();
     return zOrderMin - 1;
   }
@@ -103,8 +103,8 @@ class CanvasModel with ChangeNotifier {
   }
 
   removeLink(String linkId) {
-    components[links[linkId].sourceComponentId].removeConnection(linkId);
-    components[links[linkId].targetComponentId].removeConnection(linkId);
+    components[links[linkId]!.sourceComponentId]!.removeConnection(linkId);
+    components[links[linkId]!.targetComponentId]!.removeConnection(linkId);
     links.remove(linkId);
     notifyListeners();
   }
@@ -126,13 +126,13 @@ class CanvasModel with ChangeNotifier {
     var sourceComponent = components[sourceComponentId];
     var targetComponent = components[targetComponentId];
 
-    sourceComponent.addConnection(
+    sourceComponent!.addConnection(
       ConnectionOut(
         connectionId: linkId,
         otherComponentId: targetComponentId,
       ),
     );
-    targetComponent.addConnection(
+    targetComponent!.addConnection(
       ConnectionIn(
         connectionId: linkId,
         otherComponentId: sourceComponentId,
@@ -168,17 +168,17 @@ class CanvasModel with ChangeNotifier {
 
   updateLinks(String componentId) {
     var component = components[componentId];
-    component.connections.forEach((connection) {
-      var link = links[connection.connectionId];
+    component!.connections.forEach((connection) {
+      LinkData link = links[connection.connectionId]!;
 
-      var sourceComponent = component;
-      var targetComponent = components[connection.otherComponentId];
+      ComponentData sourceComponent = component;
+      ComponentData targetComponent = components[connection.otherComponentId]!;
 
       if (connection is ConnectionOut) {
         sourceComponent = component;
-        targetComponent = components[connection.otherComponentId];
+        targetComponent = components[connection.otherComponentId]!;
       } else if (connection is ConnectionIn) {
-        sourceComponent = components[connection.otherComponentId];
+        sourceComponent = components[connection.otherComponentId]!;
         targetComponent = component;
       } else {
         throw ArgumentError('Invalid port connection.');

@@ -46,11 +46,11 @@ class CanvasModelReader {
   /// Segments are indexed from 1.
   /// If there is no link segment on the tap location it returns null.
   /// It should take a localPosition from a onLinkTap or similar.
-  int determineLinkSegmentIndex(
+  int? determineLinkSegmentIndex(
     String linkId,
     Offset tapPosition,
   ) {
-    return canvasModel.links[linkId].determineLinkSegmentIndex(
+    return canvasModel.links[linkId]!.determineLinkSegmentIndex(
         tapPosition, canvasState.position, canvasState.scale);
   }
 }
